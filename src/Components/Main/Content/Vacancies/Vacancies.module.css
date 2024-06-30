@@ -1,0 +1,84 @@
+
+
+.container {
+    background-color: rgb(245, 245, 245);
+    width: 100vw;
+    min-height: 80vh;
+    display: flex;
+    padding: 2.5rem;
+    gap: 3rem;
+}
+
+.filter_container {
+    background-color: white;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.24);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 20%;
+    height: fit-content;
+}
+
+.jobs_container {
+    /* padding: 1.5rem; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.job_item {
+    background-color: white;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.24);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.jod_name {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.salary {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.job_mark_container {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0 1rem 0;
+}
+
+.job_mark {
+    background-color: #e2e4e9;
+    color: #5e6c77;
+    width: fit-content;
+    padding: 5px 7px 7px 7px;
+    border-radius: 5px;
+}
+
+.employer {
+   margin: 0.2rem 0 0.2rem 0;
+   font-size: 1rem; 
+}
+
+.city {
+    margin: 0.2rem 0 0.2rem 0;
+    font-size: 1rem; 
+}
+
+.info_button {
+    margin: 1rem 0 0 0;
+}
+
+.main_container {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.search {
+    margin: 0 0 1rem 0;
+    width: 70%;
+}

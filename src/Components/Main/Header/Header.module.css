@@ -1,0 +1,17 @@
+
+
+.container {
+    background-color: rgb(51, 59, 167);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 7vh;
+    padding: 0 3vw 0 2vw;
+    z-index: 2;
+}
+
+.logo {
+    margin-left: 2rem;
+    color: white;
+    font-size: 2rem;
+}
