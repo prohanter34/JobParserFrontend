@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SearchFilterType, VacanciesStateType, VacancyType } from "../store/vacanciesReduser";
+import { SearchFilterType, VacanciesStateType, VacanciesType, VacancyType } from "../store/vacanciesReduser";
 
 
 const instance = axios.create({
@@ -32,7 +32,6 @@ export const authAPI = {
 type LoginResponseType = {
     email: string,
     login: string,
-    cash: number,
     verify: boolean,
     resultCode: number
 }
@@ -51,12 +50,32 @@ export const vacanciesApi = {
                 return `&${e}=${filters[e as keyof SearchFilterType]}`
             }
         })
-        debugger
         return instance.get<VacanciesStateType>(`vacancies/search?${args.join('')}`)
     },
     getJob: (id: number) => {
         return instance.get<VacancyType>(`vacancies?id=${id}`)
+    },
+    addFavoriteVacancy: (vacancy_id: number) => {
+        return instance.put<ResultCodeResponseType>('vacancies/addFavorite', {vacancy_id})
+    },
+    deleteFavoriteVacancy: (vacancy_id: number) => {
+        return instance.put<ResultCodeResponseType>('vacancies/deleteFavorite', {vacancy_id})
+    },
+    getFavoriteVacancies: () => {
+        return instance.get<FavoriteVacanciesResponseType>('vacancies/favorite')
     }
 
+}
+
+
+interface VacansiesFavoriteType extends VacanciesType {
+    salary_from: number,
+    salary_to: number
+}
+
+type FavoriteVacanciesResponseType = {
+    items: Array<VacansiesFavoriteType>,
+    found: number,
+    resultCode: number
 }
 

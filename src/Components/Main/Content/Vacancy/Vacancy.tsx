@@ -17,6 +17,7 @@ const Vacancy = () => {
         const arr = path.pathname.split("/")
         const id = Number(arr[2])
         dispatch(getCurrentVacancy(id))
+        window.scrollTo(0, 0)
     }, [])
 
 

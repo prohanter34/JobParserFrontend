@@ -28,10 +28,17 @@
 
 .job_item {
     background-color: white;
+    display: flex;
+    justify-content: space-between;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.24);
     border-radius: 12px;
     padding: 1.5rem;
     width: 100%;
+}
+
+.star {
+    width: 30px;
+    height: 30px;
 }
 
 .jod_name {
@@ -79,6 +86,8 @@
 }
 
 .search {
+    display: flex;
+    gap: 2rem;
     margin: 0 0 1rem 0;
     width: 70%;
 }

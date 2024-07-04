@@ -1,6 +1,7 @@
 import { PayloadAction, ThunkAction, UnknownAction, createSlice } from "@reduxjs/toolkit"
 import { AppDispatch, RootState } from "./store"
-import { authAPI, vacanciesApi } from "../api/api"
+import { vacanciesApi } from "../api/api"
+import { authByCookiesThunk } from "./authReducer"
 
 
 export type VacanciesStateType = {
@@ -8,6 +9,7 @@ export type VacanciesStateType = {
     found: number,
     text: string,
     current: VacancyType | null,
+    favoriteMode: boolean,
 
 }
 
@@ -24,12 +26,14 @@ const initialState: VacanciesStateType = {
     found: 0,
     text: "",
     current: null,
+    favoriteMode: false,
 
 }
 
-interface VacanciesType {
+export interface VacanciesType {
     id: number,
     name: string,
+    isFavorite: boolean,
     salary: {
         from: number | null,
         to: number | null,
@@ -82,11 +86,29 @@ const vacanciesSlice = createSlice({
         },
         setCurrentVacancy: (state, vacancy: PayloadAction<VacancyType>) => {
             state.current = vacancy.payload
+        },
+        setFavoriteVacancy: (state, vacancy_id) => {
+            state.items.forEach((vacancy) => {
+                if (vacancy.id === vacancy_id.payload) {
+                    vacancy.isFavorite = true
+                }
+            })
+        },
+        unsetFavoriteVacancy: (state, vacancy_id) => {
+            state.items.forEach((e) => {
+                if (e.id === vacancy_id.payload) {
+                    e.isFavorite = false
+                }
+            })
+        },
+        switchFavoriteMode: (state) => {
+            state.favoriteMode = !state.favoriteMode
         }
     }
 })
 
-export const { setVacancies, setFound, setText, setCurrentVacancy } = vacanciesSlice.actions
+export const { setVacancies, setFound, setText, setCurrentVacancy, setFavoriteVacancy, 
+    unsetFavoriteVacancy, switchFavoriteMode } = vacanciesSlice.actions
 
 
 export type SearchFilterType = {
@@ -106,6 +128,7 @@ export const getVacanciesThunk = (filters:  SearchFilterType) => (dispatch: AppD
                 const salary = e.salary !== null ? {from: e.salary.from, to: e.salary.to} : null
                 return {
                     id: e.id,
+                    isFavorite: e.isFavorite,
                     name: e.name,
                     salary: salary,
                     area: e.area,
@@ -125,6 +148,53 @@ export const getCurrentVacancy = (id: number) => (dispatch: AppDispatch) => {
     vacanciesApi.getJob(id)
     .then((data) => {
         dispatch(setCurrentVacancy(data.data))
+    })
+}
+
+export const addFavoriteVacancy = (vacancy_id: number) => (dispatch: AppDispatch) => {
+    vacanciesApi.addFavoriteVacancy(vacancy_id)
+    .then((data) => {
+        if (data.data.resultCode === 103) {
+            dispatch(setFavoriteVacancy(vacancy_id))
+        } else if (data.data.resultCode === 6) {
+            dispatch(authByCookiesThunk())
+        } else {
+
+        }
+    })
+}
+
+export const deleteFavoriteVacancy = (vacancy_id: number) => (dispatch: AppDispatch) => {
+    vacanciesApi.deleteFavoriteVacancy(vacancy_id)
+    .then((data) => {
+        if (data.data.resultCode === 103) {
+            dispatch(unsetFavoriteVacancy(vacancy_id))
+        } else if (data.data.resultCode === 6) {
+            dispatch(authByCookiesThunk())
+        } else {
+            
+        }
+    })
+}
+
+export const getFavoriteVacancies = () => (dispatch: AppDispatch) => {
+    vacanciesApi.getFavoriteVacancies()
+    .then((data) => {
+        if (data.data.resultCode === 103) {
+            const newData = data.data.items.map((e) => {
+                e.salary = {
+                    to: e.salary_to,
+                    from: e.salary_from
+                }
+                return e
+            })
+            dispatch(setVacancies(newData))
+            dispatch(setFound(data.data.found))
+        } else if (data.data.resultCode === 6) {
+            // dispatch(authByCookiesThunk())
+        } else {
+
+        }
     })
 }
 

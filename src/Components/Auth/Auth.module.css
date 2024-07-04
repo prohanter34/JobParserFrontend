@@ -1,0 +1,66 @@
+.container {
+    align-items: center;
+    justify-content: center;
+    height: 95vh;
+    display: flex;
+    text-align: center;
+    background-color: rgb(240, 240, 240);
+}
+
+.form_container {
+    box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    border-radius: 12px;
+    padding: 2rem 4rem;
+    background-color: white;
+}
+
+.picker {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.form {
+    margin: 1rem 0 2rem 0;
+}
+
+.field {
+    width: fit-content;
+    margin: 1.5rem auto;
+}
+
+.input {
+    width: 20vw;
+}
+
+.submit {
+    margin: 1rem auto;
+    width: fit-content;
+}
+
+.inputs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.number_input {
+    width: 11.5rem;
+    font-size: 3rem;
+}
+
+.verify_button {
+    font-size: 3rem;
+}
+
+.warning {
+    margin: 1rem auto;
+    width: 11.5rem;
+}
+
+.fit_warning {
+    width: fit-content;
+    margin: 1rem auto;
+}
