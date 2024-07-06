@@ -39,6 +39,7 @@
 .star {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .jod_name {

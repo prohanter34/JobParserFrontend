@@ -121,6 +121,8 @@ export const logoutThunk = () => (dispatch: AppDispatch) => {
     authAPI.logoutApi()
     .then((data) => {
         dispatch(setResultCode(data.data.resultCode))
+        dispatch(setLogin(''))
+        dispatch(setEmail(''))
     })
 }
 

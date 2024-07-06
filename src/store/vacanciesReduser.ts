@@ -198,7 +198,4 @@ export const getFavoriteVacancies = () => (dispatch: AppDispatch) => {
     })
 }
 
-
-
-
 export default vacanciesSlice

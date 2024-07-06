@@ -89,14 +89,14 @@ const Vacancies = (props: PropsType) => {
     }, [salary, experience, only_with_salary, schedule, isFilterSelary, currentPage, pageSize, props.isFavoriteMode])
 
     const starOnClick = (vacancy_id: number, isFavorite: boolean) => {
-        if (isFavorite) {
-            if (userState.login) {
+        if (userState.login) {
+            if (isFavorite) {
                 dispatch(deleteFavoriteVacancy(vacancy_id))
+            } else {
+                    dispatch(addFavoriteVacancy(vacancy_id))
             }
         } else {
-            if (userState.login) {
-                dispatch(addFavoriteVacancy(vacancy_id))
-            }
+            // !TODO warning о том что нужно войти в систему
         }
     }
 
@@ -185,7 +185,7 @@ const Vacancies = (props: PropsType) => {
                         onChange={searchOnChange}
                         disabled={props.isFavoriteMode}
                     />
-                    <Button disabled={!userState.login} size="large" 
+                    <Button disabled={!userState.login && !props.isFavoriteMode} size="large" 
                             onClick={switchFavoriteOnClick} type="dashed">
                                 {props.isFavoriteMode ? 'На главную' : 'Избранное'}
                     </Button>
