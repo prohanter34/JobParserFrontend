@@ -108,9 +108,9 @@ const Vacancies = (props: PropsType) => {
         }
     }
 
-    const vacanciesElems = state.items.map((e) => {
+    const vacanciesElems = state.items.map((e, ind) => {
         return (
-            <div className={s.job_item}>
+            <div key={ind} className={s.job_item}>
                 <div>
                 <div className={s.jod_name}>{e.name}</div>
                 {e.salary !== null ? <div className={s.salary}>
@@ -190,7 +190,7 @@ const Vacancies = (props: PropsType) => {
                                 {props.isFavoriteMode ? 'На главную' : 'Избранное'}
                     </Button>
                 </div>
-                {state.text !== "" ? <h2>{state.found} вакансий "{state.text}"</h2> : <h2>Рекомендации</h2>}
+                {props.isFavoriteMode ? <h2>Избранное</h2> : state.text !== "" ? <h2>{state.found} вакансий "{state.text}"</h2> : <h2>Рекомендации</h2>}
 
                 <div className={s.jobs_container}>
 

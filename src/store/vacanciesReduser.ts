@@ -122,6 +122,7 @@ export type SearchFilterType = {
 }
 
 export const getVacanciesThunk = (filters:  SearchFilterType) => (dispatch: AppDispatch) => {
+    dispatch(setVacancies([]))
     vacanciesApi.searchVacancies(filters)
         .then((data) => {
             const newData = data.data.items.map((e) => {
@@ -178,6 +179,7 @@ export const deleteFavoriteVacancy = (vacancy_id: number) => (dispatch: AppDispa
 }
 
 export const getFavoriteVacancies = () => (dispatch: AppDispatch) => {
+    dispatch(setVacancies([]))
     vacanciesApi.getFavoriteVacancies()
     .then((data) => {
         if (data.data.resultCode === 103) {
